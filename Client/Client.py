@@ -1,14 +1,40 @@
 import socket
+import time
 
 if __name__ == '__main__':
-    mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    isConnected = False
+    mySocket = None
 
-    mySocket.connect(("127.0.0.1", 8222))
+    isRunning = True
 
-    testString = "this is a test from the python client"
+    while isRunning == True:
+        while isConnected == False:
 
-    mySocket.send(testString.encode())
+            if mySocket is None:
+                mySocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    while True:
-        data = mySocket.recv(4096)
-        print(data.decode("utf-8"))
+            try:
+                mySocket.connect(("127.0.0.1", 8222))
+                isConnected = True
+            except socket.error:
+                isConnected = False
+
+            if (isConnected == True):
+                try:
+                    testString = "You are now connected"
+                    mySocket.send(testString.encode())
+                except:
+                    isConnected = False
+                    mySocket = None
+
+                    print("Server not found")
+                    time.sleep(2.0)
+
+        while isConnected == True:
+            try:
+                data = mySocket.recv(4096)
+                print(data.decode("utf-8"))
+            except:
+                isConnected = False
+mySocket = None
+

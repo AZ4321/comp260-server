@@ -6,8 +6,7 @@ class Dungeon:
         self.roomMap ={}
 
     def Init(self):
-        print("init")
-
+        print("And here you are \n ")
         self.roomMap["room 0"] = Room("room 0", "You are waiting alone by the reception desk of a grand yet empty castle. Should probably look around.", "room 1", "", "", "")
         self.roomMap["room 1"] = Room("room 1", "You have entered room 1","", "room 0", "room 3", "room 2")
         self.roomMap["room 2"] = Room("room 2", "You have entered room 2", "room 4", "", "", "")
